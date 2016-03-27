@@ -420,12 +420,23 @@ function autoLinker(json)
       {
         json.data[i].body_html = json.data[i].body.replace(/((http:|https:)\/\/[\x21-\x26\x28-\x7e]+.(jpg|jpeg|png|gif))/gi, '<div><a href="$1"><img src="$1"></img></a></div>');
       }
+      /*普通YOUTUurl*/
       else if (json.data[i].body.match(/((http:|https:)\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_\-]+))/))
       {
         var youtubeId = json.data[i].body.substring(json.data[i].body.lastIndexOf('v=') + 2, json.data[i].body.length);
         var iframe = '<iframe width="370" height="277" src="http://www.youtube.com/embed/' + youtubeId + '" frameborder="0" allowfullscreen></iframe>';
         json.data[i].body_html = json.data[i].body.replace(/((http:|https:)\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_\-]+))/gi, '<div>' + iframe + '</div>');
       }
+      /*普通YOUTUurl*/
+      /*短縮YOUTUurl*/
+       else if (json.data[i].body.match(/(https:\/\/(?:www\.|)youtu\.be\/([a-zA-Z0-9_\-]+))/))
+      {
+        var youtubeId = json.data[i].body.substring(json.data[i].body.lastIndexOf('be/') + 3, json.data[i].body.length);
+        var iframe = '<iframe width="370" height="277" src="http://www.youtube.com/embed/' + youtubeId + '" frameborder="0" allowfullscreen></iframe>';
+        json.data[i].body_html = json.data[i].body.replace(/https:\/\/(?:www\.|)youtu\.be\/([a-zA-Z0-9_\-]+)/gi, '<div>' + iframe + '</div>');
+      }	
+      /*短縮YOUTUurl*/
+
       else if (json.data[i].body.match(/((http:|https:)\/\/www\.amazon\..*\/([a-zA-Z0-9_\-]+)\/.*)/))
       {
         var match_id = json.data[i].body.match(/(?:ASIN|product|dp)\/([^\/]+)/i);
