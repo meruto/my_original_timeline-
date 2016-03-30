@@ -437,7 +437,7 @@ function autoLinker(json)
       }
       else if (json.data[i].body.match(/((http:|https:)\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_\-]+))/))
       {
-        var youtubeId = json.data[i].body.substring(json.data[i].body.lastIndexOf('v=') + 2, json.data[i].body.lastIndexOf('be/') + 14);
+        var youtubeId = json.data[i].body.substring(json.data[i].body.lastIndexOf('v=') + 2, json.data[i].body.lastIndexOf('v=') + 14);
         var iframe = '<iframe width="370" height="277" src="http://www.youtube.com/embed/' + youtubeId + '" frameborder="0" allowfullscreen></iframe>';
         json.data[i].body_html = json.data[i].body.replace(/((http:|https:)\/\/www\.youtube\.com\/watch\?v=([a-zA-Z0-9_\-]+))/gi, '<div>' + iframe + '</div>');
       }
